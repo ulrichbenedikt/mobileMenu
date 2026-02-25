@@ -1,0 +1,47 @@
+/* ── MobileMenu — Base Styles ──────────────────────────────────────────────
+   These are the structural styles required for the slide-in behaviour.
+   Visual design (colours, typography, sizing) is entirely up to you.
+
+   If you changed the default breakpoint (900) in the JS options,
+   update the media query values below to match.
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* Nav container — submenu panels are positioned relative to this */
+[data-mobile-menu] {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hide the nav on mobile until the toggle opens it */
+@media (max-width: 899px) {
+  [data-mobile-menu] {
+    display: none;
+  }
+
+  [data-mobile-menu].is-open {
+    display: block;
+  }
+}
+
+/* Submenu panels: cover the nav, start off-screen to the right */
+[data-submenu] {
+  position: absolute;
+  inset: 0;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+/* Slide into view when active */
+[data-submenu].is-active {
+  transform: translateX(0);
+}
+
+/* Back button: hidden at root level (no submenu open) */
+[data-mobile-menu-back] {
+  display: none;
+}
+
+/* Back button: visible when a submenu panel is active */
+[data-mobile-menu-back].is-active {
+  display: block;
+}

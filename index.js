@@ -5,12 +5,14 @@
 			this.options = Object.assign({}, MobileMenu.defaults, options);
 			this.nav = null;
 			this.toggleBtn = null;
+			this.backBtn = null;
 			this._stack = [];
 			this._isOpen = false;
 			this._isMobile = false;
 			this._mq = null;
 			this._onToggleClick = null;
 			this._onNavClick = null;
+			this._onBackClick = null;
 			this._onMqChange = null;
 		}
 
@@ -23,7 +25,9 @@
 				document.querySelector(`[data-mobile-menu-toggle="${this.selector}"]`) ||
 				document.querySelector('[data-mobile-menu-toggle]');
 
-			this._injectBackButtons();
+			// Back button lives inside the nav, provided by the website
+			this.backBtn = this.nav.querySelector('[data-mobile-menu-back]');
+
 			this._initAria();
 			this._bindEvents();
 			this._initBreakpoint();
@@ -33,23 +37,15 @@
 
 		// ── Private ──────────────────────────────────────────────────────────────
 
-		_injectBackButtons() {
-			this.nav.querySelectorAll('[data-submenu]').forEach((panel) => {
-				if (panel.querySelector('[data-back-btn]')) return;
-				const btn = document.createElement('button');
-				btn.type = 'button';
-				btn.setAttribute('data-back-btn', '');
-				btn.textContent = this.options.backLabel;
-				panel.prepend(btn);
-			});
-		}
-
 		_initAria() {
 			this.nav.querySelectorAll('[data-submenu]').forEach((panel) => {
 				panel.setAttribute('aria-hidden', 'true');
 			});
 			if (this.toggleBtn) {
 				this.toggleBtn.setAttribute('aria-expanded', 'false');
+			}
+			if (this.backBtn) {
+				this.backBtn.setAttribute('aria-hidden', 'true');
 			}
 		}
 
@@ -61,6 +57,11 @@
 				this.toggleBtn.addEventListener('click', this._onToggleClick);
 			}
 			this.nav.addEventListener('click', this._onNavClick);
+
+			if (this.backBtn) {
+				this._onBackClick = () => this._goBack();
+				this.backBtn.addEventListener('click', this._onBackClick);
+			}
 		}
 
 		_handleNavClick(e) {
@@ -70,12 +71,6 @@
 			if (trigger) {
 				e.preventDefault();
 				this._openPanel(trigger.getAttribute('data-submenu-trigger'));
-				return;
-			}
-
-			const backBtn = e.target.closest('[data-back-btn]');
-			if (backBtn) {
-				this._goBack();
 			}
 		}
 
@@ -115,6 +110,7 @@
 				this.toggleBtn.classList.remove(this.options.openClass);
 				this.toggleBtn.setAttribute('aria-expanded', 'false');
 			}
+			this._updateBackButton();
 		}
 
 		_openPanel(panelId) {
@@ -123,6 +119,7 @@
 			this._stack.push(panelId);
 			panel.classList.add(this.options.activeClass);
 			panel.setAttribute('aria-hidden', 'false');
+			this._updateBackButton();
 		}
 
 		_goBack() {
@@ -133,6 +130,14 @@
 				currentPanel.classList.remove(this.options.activeClass);
 				currentPanel.setAttribute('aria-hidden', 'true');
 			}
+			this._updateBackButton();
+		}
+
+		_updateBackButton() {
+			if (!this.backBtn) return;
+			const active = this._stack.length > 0;
+			this.backBtn.classList.toggle(this.options.activeClass, active);
+			this.backBtn.setAttribute('aria-hidden', active ? 'false' : 'true');
 		}
 
 		// ── Public API ───────────────────────────────────────────────────────────
@@ -152,10 +157,12 @@
 				this.toggleBtn.removeEventListener('click', this._onToggleClick);
 			}
 			this.nav.removeEventListener('click', this._onNavClick);
+			if (this.backBtn && this._onBackClick) {
+				this.backBtn.removeEventListener('click', this._onBackClick);
+			}
 			if (this._mq) {
 				this._mq.removeEventListener('change', this._onMqChange);
 			}
-			this.nav.querySelectorAll('[data-back-btn]').forEach((btn) => btn.remove());
 			return this;
 		}
 	}
@@ -164,7 +171,6 @@
 		breakpoint: 900,
 		openClass: 'is-open',
 		activeClass: 'is-active',
-		backLabel: '← Back',
 	};
 
 	globalThis.MobileMenu = MobileMenu;
