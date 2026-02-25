@@ -8,10 +8,14 @@
 
 /* Submenu panels: cover the nav, start off-screen to the right */
 [data-submenu] {
-  position: absolute;
+  position: fixed;
   inset: 0;
   transform: translateX(100%);
   transition: transform 0.3s ease;
+  background: white;
+  z-index: 1;
+  overflow-y: scroll;
+  padding-top:40px;
 }
 
 /* Slide into view when active */
@@ -21,10 +25,12 @@
 
 /* Back button: hidden at root level (no submenu open) */
 [data-mobile-menu-back] {
-  display: none;
+  visibility: hidden;
+  z-index: 10;
+  position: relative;
 }
 
 /* Back button: visible when a submenu panel is active */
 [data-mobile-menu-back].is-active {
-  display: block;
+  visibility: visible;
 }
