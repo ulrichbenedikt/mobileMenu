@@ -6,23 +6,6 @@
    update the media query values below to match.
    ────────────────────────────────────────────────────────────────────────── */
 
-/* Nav container — submenu panels are positioned relative to this */
-[data-mobile-menu] {
-  position: relative;
-  overflow: hidden;
-}
-
-/* Hide the nav on mobile until the toggle opens it */
-@media (max-width: 899px) {
-  [data-mobile-menu] {
-    display: none;
-  }
-
-  [data-mobile-menu].is-open {
-    display: block;
-  }
-}
-
 /* Submenu panels: cover the nav, start off-screen to the right */
 [data-submenu] {
   position: absolute;

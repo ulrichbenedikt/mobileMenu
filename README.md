@@ -1,6 +1,6 @@
 # MobileMenu
 
-A lightweight, dependency-free JavaScript library for mobile navigation menus. It works with your existing HTML by reading `data-` attributes — no markup is generated, no CSS is injected. The script only manages classes and ARIA attributes; all visual design is yours.
+A lightweight, dependency-free JavaScript library for mobile navigation menus. It works with your existing HTML by reading `data-` attributes. The script only manages classes and ARIA attributes; all visual design is yours.
 
 Submenus slide in from the right and fully cover the nav panel. Multi-level nesting is supported via a built-in navigation stack.
 
@@ -26,12 +26,12 @@ To pin a specific version, replace `@v.1.0.0` with the desired tag.
 <button data-mobile-menu-toggle>Menu</button>
 
 <!-- 2. Nav with submenus — give it a unique id -->
-<nav id="main-nav" data-mobile-menu>
+<nav id="main-nav">
   <!-- Back button — one per nav, shown/hidden automatically -->
   <button data-mobile-menu-back>← Back</button>
 
   <a href="/about">About</a>
-  <a href="#" data-submenu-trigger="products">Products</a>
+  <div data-submenu-trigger="products">Products</div>
 
   <div data-submenu="products">
     <a href="/cat-a">Category A</a>
@@ -56,7 +56,6 @@ The script wires up all interactions. The back button is yours to place and styl
 | Attribute | Required | Description |
 |---|---|---|
 | `id="your-id"` | Yes | The ID passed to the `MobileMenu` constructor. Using an ID guarantees the element is unique on the page |
-| `data-mobile-menu` | Yes | CSS hook required by `mobile-menu.css` for all structural styles |
 
 ### On the toggle button
 
@@ -69,7 +68,7 @@ The script wires up all interactions. The back button is yours to place and styl
 
 | Attribute | Required | Description |
 |---|---|---|
-| `data-submenu-trigger="id"` | — | Clicking this element opens the submenu panel whose `data-submenu` value matches `id` |
+| `data-submenu-trigger="id"` | — | Clicking this element opens the submenu panel whose `data-submenu` value matches `id`. Use a `<div>` or `<p>`, not `<a>`, to avoid triggering native link/menu behaviour in site builders like Webflow |
 | `data-submenu="id"` | — | Marks a submenu panel. Must match the `id` used on its trigger |
 | `data-mobile-menu-back` | — | Marks the back button. Place it once anywhere inside the nav. The library shows it when a submenu is open and hides it at root level |
 
@@ -132,7 +131,7 @@ The file covers:
 Place **one** back button anywhere inside the nav and mark it with `data-mobile-menu-back`. The library handles the rest:
 
 ```html
-<nav id="main-nav" data-mobile-menu>
+<nav id="main-nav">
   <button data-mobile-menu-back>← Back</button>
   <!-- rest of nav -->
 </nav>
@@ -158,14 +157,14 @@ Style it with the attribute selector:
 Place a `data-submenu-trigger` inside a `[data-submenu]` panel to create nested submenus. The library maintains a navigation stack internally, so the back button always returns to the correct parent level regardless of depth.
 
 ```html
-<nav id="main-nav" data-mobile-menu>
+<nav id="main-nav">
   <button data-mobile-menu-back>← Back</button>
 
-  <a href="#" data-submenu-trigger="products">Products</a>
+  <div data-submenu-trigger="products">Products</div>
 
   <div data-submenu="products">
     <a href="/overview">Overview</a>
-    <a href="#" data-submenu-trigger="clothing">Clothing</a>
+    <div data-submenu-trigger="clothing">Clothing</div>
   </div>
 
   <div data-submenu="clothing">
@@ -186,10 +185,10 @@ Create a separate instance for each menu. Scope toggle buttons by setting `data-
 
 ```html
 <button data-mobile-menu-toggle="#main-nav">Main menu</button>
-<nav id="main-nav" data-mobile-menu>...</nav>
+<nav id="main-nav">...</nav>
 
 <button data-mobile-menu-toggle="#footer-nav">Footer menu</button>
-<nav id="footer-nav" data-mobile-menu>...</nav>
+<nav id="footer-nav">...</nav>
 ```
 
 ```js
