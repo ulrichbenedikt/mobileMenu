@@ -11,11 +11,11 @@ Submenus slide in from the right and fully cover the nav panel. Multi-level nest
 Load both files from jsDelivr. Add the stylesheet in `<head>` and the script before `</body>`:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ulrichbenedikt/mobileMenu@v.1.0.0/mobile-menu.css">
-<script src="https://cdn.jsdelivr.net/gh/ulrichbenedikt/mobileMenu@v.1.0.0/index.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ulrichbenedikt/mobileMenu@latest/mobile-menu.css">
+<script src="https://cdn.jsdelivr.net/gh/ulrichbenedikt/mobileMenu@latest/index.js"></script>
 ```
 
-To pin a specific version, replace `@v.1.0.0` with the desired tag.
+To pin a specific version, replace `@latest` with the desired version like `@v1.0.0`.
 
 ---
 
@@ -26,7 +26,7 @@ To pin a specific version, replace `@v.1.0.0` with the desired tag.
 <button data-mobile-menu-toggle>Menu</button>
 
 <!-- 2. Nav with submenus — give it a unique id -->
-<nav id="main-nav">
+<div id="main-nav">
   <!-- Back button — one per nav, shown/hidden automatically -->
   <button data-mobile-menu-back>← Back</button>
 
@@ -37,7 +37,7 @@ To pin a specific version, replace `@v.1.0.0` with the desired tag.
     <a href="/cat-a">Category A</a>
     <a href="/cat-b">Category B</a>
   </div>
-</nav>
+</div>
 
 <!-- 3. Initialise with the nav's id -->
 <script>
@@ -81,16 +81,18 @@ Pass an options object as the second argument to the constructor.
 ```js
 new MobileMenu('#main-nav', {
   breakpoint: 900,
-  openClass:  'is-open',
   activeClass: 'is-active',
+  animationDuration: 300,
+  animationEasing: 'ease',
 }).mount();
 ```
 
 | Option | Type | Default | Description |
 |---|---|---|---|
 | `breakpoint` | `number` | `900` | The library is active below this pixel width. At or above it, all menus are closed and interactions are disabled |
-| `openClass` | `string` | `'is-open'` | Class added to the nav and toggle button when the menu is open |
 | `activeClass` | `string` | `'is-active'` | Class added to a `[data-submenu]` panel when it is visible. Also added to `[data-mobile-menu-back]` when a submenu is open |
+| `animationDuration` | `number` | `300` | Slide-in/slide-out duration in milliseconds |
+| `animationEasing` | `string` | `'ease'` | CSS `transition-timing-function` value for the slide transition. Keyword values: `'ease'` `'linear'` `'ease-in'` `'ease-out'` `'ease-in-out'`. Custom curve: `'cubic-bezier(x1, y1, x2, y2)'` e.g. `'cubic-bezier(0.4, 0, 0.2, 1)'`. Step function: `'steps(n)'` e.g. `'steps(4)'` |
 
 ---
 
@@ -117,12 +119,9 @@ The `mobile-menu.css` file included in this repository (and available via jsDeli
 ```
 
 The file covers:
-- Hiding the nav on mobile until it is opened
 - Positioning submenu panels to cover the nav
 - The slide-in/slide-out transition
 - Showing and hiding the back button based on navigation depth
-
-> **Note:** If you change the default `breakpoint` option (900), update the `max-width` values in `mobile-menu.css` to match, or copy the relevant rules into your own stylesheet and override them there.
 
 ---
 
@@ -194,6 +193,41 @@ Create a separate instance for each menu. Scope toggle buttons by setting `data-
 ```js
 new MobileMenu('#main-nav').mount();
 new MobileMenu('#footer-nav').mount();
+```
+
+---
+
+## Webflow Integration
+
+This library is designed to work alongside Webflow's native nav component. Webflow handles opening and closing the nav overlay via its own hamburger button — MobileMenu only manages the submenu panel navigation inside it.
+
+### Element type for triggers
+
+**Never use a Webflow Link, Nav Link, or Button element as a `data-submenu-trigger`.** Webflow attaches its own click handlers to these elements that close the mobile nav overlay when clicked, which breaks the submenu behaviour.
+
+Use a plain **Div Block** or **Text Block** instead:
+
+```html
+<!-- ✗ Wrong — Webflow link closes the overlay on click -->
+<a href="#" data-submenu-trigger="products">Products</a>
+
+<!-- ✓ Correct — plain div, no Webflow handlers -->
+<div data-submenu-trigger="products">Products</div>
+```
+
+### Setup steps in Webflow
+
+1. Select the **Nav Menu** element → Element Settings → set an **ID** (e.g. `main-nav`)
+2. Add a **Div Block** inside the Nav Menu for your mobile content
+3. Use **Div Blocks** (not Nav Links or Links) as submenu triggers, marked with the `data-submenu-trigger` custom attribute
+4. Add the back button element with the `data-mobile-menu-back` custom attribute
+5. Do **not** add `data-mobile-menu-toggle` to Webflow's hamburger — Webflow's own script already controls it
+6. Initialise in a before-`</body>` embed:
+
+```html
+<script>
+  new MobileMenu('#main-nav').mount();
+</script>
 ```
 
 ---

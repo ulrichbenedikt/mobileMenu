@@ -20,6 +20,10 @@
 			this.nav = document.querySelector(this.selector);
 			if (!this.nav) return this;
 
+			// Expose animation options as CSS custom properties
+			this.nav.style.setProperty('--mm-duration', `${this.options.animationDuration}ms`);
+			this.nav.style.setProperty('--mm-easing', this.options.animationEasing);
+
 			// Find toggle button — scoped by selector value or fall back to any on page
 			this.toggleBtn =
 				document.querySelector(`[data-mobile-menu-toggle="${this.selector}"]`) ||
@@ -89,9 +93,7 @@
 		_openMenu() {
 			this._isOpen = true;
 			this._stack = [];
-			this.nav.classList.add(this.options.openClass);
 			if (this.toggleBtn) {
-				this.toggleBtn.classList.add(this.options.openClass);
 				this.toggleBtn.setAttribute('aria-expanded', 'true');
 			}
 		}
@@ -103,9 +105,7 @@
 				panel.classList.remove(this.options.activeClass);
 				panel.setAttribute('aria-hidden', 'true');
 			});
-			this.nav.classList.remove(this.options.openClass);
 			if (this.toggleBtn) {
-				this.toggleBtn.classList.remove(this.options.openClass);
 				this.toggleBtn.setAttribute('aria-expanded', 'false');
 			}
 			this._updateBackButton();
@@ -161,14 +161,17 @@
 			if (this._mq) {
 				this._mq.removeEventListener('change', this._onMqChange);
 			}
+			this.nav.style.removeProperty('--mm-duration');
+			this.nav.style.removeProperty('--mm-easing');
 			return this;
 		}
 	}
 
 	MobileMenu.defaults = {
 		breakpoint: 900,
-		openClass: 'is-open',
 		activeClass: 'is-active',
+		animationDuration: 300,
+		animationEasing: 'ease',
 	};
 
 	globalThis.MobileMenu = MobileMenu;
