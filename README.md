@@ -123,7 +123,7 @@ data-submenu="cows"
 
 ---
 
-## Step 4: Initiate everything
+## 🌻 Step 4: Initiate everything
 Add the initialisation script before the `</body>` tag in your Webflow Project Settings (or Page Settings)
 
 Replace `#navbar` with the ID you set on your Navbar in step 2.
