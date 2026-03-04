@@ -4,7 +4,7 @@
 
 Create unlimited submenus, that slides in when clicking a navigation list item.
 
-<video src="assets/preview.mov" autoplay loop muted playsinline></video>
+![Video](assets/preview.mov)
 
 Submenus slide in from the right and fully cover the nav panel. Multi-level nesting is supported via a built-in navigation stack.
 
