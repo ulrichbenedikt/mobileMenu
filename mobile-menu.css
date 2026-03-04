@@ -23,6 +23,10 @@
   transform: translateX(0);
 }
 
+[data-submenu].w-dropdown-list {
+  display: block;
+}
+
 [data-submenu-trigger] {
   cursor: pointer;
 }
@@ -30,7 +34,7 @@
 /* Back button: hidden at root level (no submenu open) */
 [data-mobile-menu-back] {
   visibility: hidden;
-  z-index: 10;
+  z-index: 999;
   position: relative;
   cursor: pointer;
 }

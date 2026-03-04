@@ -32,6 +32,7 @@
 			// Back button lives inside the nav, provided by the website
 			this.backBtn = this.nav.querySelector('[data-mobile-menu-back]');
 
+			this._normalizeTriggers();
 			this._initAria();
 			this._bindEvents();
 			this._initBreakpoint();
@@ -40,6 +41,15 @@
 		}
 
 		// ── Private ──────────────────────────────────────────────────────────────
+
+		_normalizeTriggers() {
+			this.nav.querySelectorAll('a[data-submenu-trigger]').forEach((a) => {
+				const p = document.createElement('p');
+				Array.from(a.attributes).forEach((attr) => p.setAttribute(attr.name, attr.value));
+				while (a.firstChild) p.appendChild(a.firstChild);
+				a.parentNode.replaceChild(p, a);
+			});
+		}
 
 		_initAria() {
 			this.nav.querySelectorAll('[data-submenu]').forEach((panel) => {
