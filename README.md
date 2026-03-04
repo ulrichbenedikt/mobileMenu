@@ -123,13 +123,25 @@ data-submenu="cows"
 
 ---
 
-### 3. Add the initialisation script before the `</body>` tag in your Webflow Project Settings (or Page Settings)
+## Step 4: Initiate everything
+Add the initialisation script before the `</body>` tag in your Webflow Project Settings (or Page Settings)
 
-Replace `#navbar` with the ID you set on your Navbar in step 2.1.
+Replace `#navbar` with the ID you set on your Navbar in step 2.
 
 ```html
 <script>
   new MobileMenu('#navbar').mount();
+</script>
+```
+
+If you want to change default options, replace the values in the option section with your own data. You find more information in the chapter **⚙️ Options** below.
+```html
+<script>
+new MobileMenu('#navbar', {
+  breakpoint: 900,
+  animationDuration: 300,
+  animationEasing: 'ease',
+}).mount();
 </script>
 ```
 
