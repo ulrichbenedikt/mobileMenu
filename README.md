@@ -1,15 +1,18 @@
-# MobileMenu
+# Multilevel MobileMenu: A Webflow Library for nice mobile menus with deep navigation
 
-## What it is
-**Create unlimited submenus that slide in when clicking a navigation item — and style them however you want!**
+> **Create unlimited submenus that slide in when clicking a navigation item — and style them however you want!**
+
+## 🚀 What is it?
+
+Multilevel MobileMenu is a lightweight JavaScript library for multilevel mobile navigation menus. It works by reading `data-` attributes you add in Webflow's Designer. The script only manages classes and ARIA attributes — all visual design is yours.
 
 <img src="assets/preview.gif" alt="preview" width="200"/>
 
-MobileMenu is a lightweight, dependency-free JavaScript library for multilevel mobile navigation menus. It works by reading `data-` attributes you add in Webflow's Designer. The script only manages classes and ARIA attributes — all visual design is yours.
+## ⚡ Step 1: Getting Started
 
-## Getting Started
+### Add the <head> code
 
-### 1. Add the following code inside the `<head>` tag in your Webflow Project Settings (or Page Settings)
+Add the following code inside the `<head>` tag in your Webflow Project Settings (or Page Settings)
 
 ```html
 <!-- Install Multilevel Mobile Menu -->
@@ -21,32 +24,39 @@ To pin a specific version, replace `@latest` with a version tag like `@v1.0.0`.
 
 ---
 
-### 2. Build the multilevel structure in Webflow Designer
+## 🏡 Step 2: Further Setups
 
-#### 2.1 Add a Navbar to your page and give it a unique ID
+### Add the Navbar
 
-Select the **Navbar** element → open the **Element Settings** panel (the gear icon) → set an **ID**, for example `main-nav`.
+In the Webflow Designer add a Navbar to your page and give it a unique ID
+
+Select the **Navbar** element → open the **Element Settings** panel (the gear icon) → set an **ID**, for example `navbar`.
 
 <img src="assets/navbar.png" alt="preview" width="200"/>
 
-#### 2.2 Add a Back Button inside the Navbar and give it this custom attribute
+### Add a Back Button 
 
-Place **one** back button anywhere inside the Navbar. The library shows it automatically when a submenu is open and hides it at the root level.
+Add a Back Button inside the Navigation Div Block and give it this custom attribute
 
 ```
 data-mobile-menu-back
 ```
 
+> **Important:** Place only **one** back button anywhere inside the Navigation Div Block. The library shows it automatically when a submenu is open and hides it at the root level.
 > **Important:** Do not use a Webflow **Link Block** or **Button** element for the back button. Use a **Div Block** or **Text Block** instead. Webflow's link and button elements trigger their own click behaviour that closes the mobile overlay — a plain div avoids this.
+> **Important:** Keep the Back Button inside the **Navigation Div Block**. Placing it outside will trigger Webflows click behaviour that closes the mobile overlay — a plain div avoids this.
 
-#### 2.3 Add your submenu triggers and panels
+## 🌟 Step 3: The Multilevel Menu
 
 Choose one of the following approaches depending on your preferred Webflow structure. You can mix and match freely.
 
-<details>
-<summary><strong>Option A — Dropdown Element</strong></summary>
+> **Important:** Keep the elements inside the **Navigation Div Block**. Placing it outside will trigger Webflows click behaviour that closes the mobile overlay — a plain div avoids this.
 
-Add a **Dropdown** element inside the Navbar.
+### Option A — The Dropdown Element
+<details>
+<summary><strong>Details</strong></summary>
+
+Add a **Dropdown** element inside the Navigation Div Block.
 
 <img src="assets/dropdown.png" alt="preview" width="200"/>
 
@@ -64,10 +74,12 @@ data-submenu="cars"
 
 </details>
 
-<details>
-<summary><strong>Option B — Tabs Element</strong></summary>
+### Option B — The Tabs Element
 
-Add a **Tabs** element inside the Navbar.
+<details>
+<summary><strong>Details</strong></summary>
+
+Add a **Tabs** element inside the Navigation Div Block.
 
 <img src="assets/tabs.png" alt="preview" width="200"/>
 
@@ -85,10 +97,12 @@ data-submenu="cats"
 
 </details>
 
-<details>
-<summary><strong>Option C — Div Block or Text Element</strong></summary>
+### Option C — Custom Div Block or Text Element
 
-Add a **Heading**, **Paragraph**, **Text Block**, or **Div Block** that will act as the clickable nav item.
+<details>
+<summary><strong>Details</strong></summary>
+
+Add a **Heading**, **Paragraph**, **Text Block**, or **Div Block** that will act as the clickable nav item inside the Navigation Div Block, .
 
 Add this custom attribute to that element. Replace `cows` with any name of your choice.
 
@@ -111,17 +125,17 @@ data-submenu="cows"
 
 ### 3. Add the initialisation script before the `</body>` tag in your Webflow Project Settings (or Page Settings)
 
-Replace `#main-nav` with the ID you set on your Navbar in step 2.1.
+Replace `#navbar` with the ID you set on your Navbar in step 2.1.
 
 ```html
 <script>
-  new MobileMenu('#main-nav').mount();
+  new MobileMenu('#navbar').mount();
 </script>
 ```
 
 ---
 
-## HTML Attributes Reference
+## 💻 HTML Attributes Reference
 
 ### On the Navbar
 
@@ -146,7 +160,7 @@ Replace `#main-nav` with the ID you set on your Navbar in step 2.1.
 
 ---
 
-## Options
+## ⚙️ Options
 
 Pass an options object as the second argument to the constructor.
 
@@ -168,7 +182,7 @@ The active class added to open submenu panels and the back button is always `is-
 
 ---
 
-## Methods
+## 🛠️ Methods
 
 All methods return `this`, so they are chainable.
 
@@ -182,7 +196,7 @@ menu.destroy(); // remove all event listeners
 
 ---
 
-## CSS
+## 🎨 CSS
 
 The `mobile-menu.css` file (loaded via jsDelivr in step 1) contains all structural styles required for the slide-in behaviour. No additional CSS is needed for the mechanics to work.
 
@@ -193,7 +207,7 @@ It covers:
 
 ---
 
-## Multi-Level Nesting
+## 🎭 Multi-Level Nesting
 
 Place a `data-submenu-trigger` element inside a `[data-submenu]` panel to create nested submenus. The library tracks the navigation history internally, so the back button always returns to the correct parent level no matter how deep you go.
 
@@ -203,7 +217,7 @@ There is no hard limit on nesting depth.
 
 ---
 
-## Multiple Menus on the Same Page
+## 🧪 Multiple Menus on the Same Page
 
 Create a separate instance for each menu and scope each toggle button to its nav using the nav's ID as the attribute value:
 
@@ -222,7 +236,7 @@ new MobileMenu('#footer-nav').mount();
 
 ---
 
-## Accessibility
+## 🤝 Accessibility
 
 The library automatically manages the following ARIA attributes:
 
@@ -234,6 +248,6 @@ The library automatically manages the following ARIA attributes:
 
 ---
 
-## Browser Support
+## 🌐 Browser Support
 
 Uses `matchMedia`, `closest`, and `addEventListener` — supported in all modern browsers.
