@@ -1,16 +1,23 @@
 # MobileMenu
 
-A lightweight, dependency-free JavaScript library for mobile navigation menus. It works with your existing HTML by reading `data-` attributes. The script only manages classes and ARIA attributes; all visual design is yours.
+## What it is
+
+Create unlimited submenus, that slides in when clicking a navigation list item.
+
+<video src="assets/preview.mov" autoplay loop muted playsinline></video>
 
 Submenus slide in from the right and fully cover the nav panel. Multi-level nesting is supported via a built-in navigation stack.
 
----
+MobileMenu is a lightweight, dependency-free JavaScript library for a multilevel mobile navigation menus. It works by reading `data-` attributes. The script only manages classes and ARIA attributes; all visual design is yours.
 
-## Installation
+
+
+## Getting Started
 
 Load both files from jsDelivr. Add the stylesheet in `<head>` and the script before `</body>`:
 
 ```html
+<!-- Install Multilevel Mobilmenu -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ulrichbenedikt/mobileMenu@latest/mobile-menu.css">
 <script src="https://cdn.jsdelivr.net/gh/ulrichbenedikt/mobileMenu@latest/index.js"></script>
 ```
