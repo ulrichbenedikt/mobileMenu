@@ -112,7 +112,7 @@
 			this._isOpen = false;
 			this._stack = [];
 			this.nav.querySelectorAll('[data-submenu]').forEach((panel) => {
-				panel.classList.remove(this.options.activeClass);
+				panel.classList.remove('is-active');
 				panel.setAttribute('aria-hidden', 'true');
 			});
 			if (this.toggleBtn) {
@@ -125,7 +125,7 @@
 			const panel = this.nav.querySelector(`[data-submenu="${panelId}"]`);
 			if (!panel) return;
 			this._stack.push(panelId);
-			panel.classList.add(this.options.activeClass);
+			panel.classList.add('is-active');
 			panel.setAttribute('aria-hidden', 'false');
 			this._updateBackButton();
 		}
@@ -135,7 +135,7 @@
 			const currentId = this._stack.pop();
 			const currentPanel = this.nav.querySelector(`[data-submenu="${currentId}"]`);
 			if (currentPanel) {
-				currentPanel.classList.remove(this.options.activeClass);
+				currentPanel.classList.remove('is-active');
 				currentPanel.setAttribute('aria-hidden', 'true');
 			}
 			this._updateBackButton();
@@ -144,7 +144,7 @@
 		_updateBackButton() {
 			if (!this.backBtn) return;
 			const active = this._stack.length > 0;
-			this.backBtn.classList.toggle(this.options.activeClass, active);
+			this.backBtn.classList.toggle('is-active', active);
 			this.backBtn.setAttribute('aria-hidden', active ? 'false' : 'true');
 		}
 
@@ -179,7 +179,6 @@
 
 	MobileMenu.defaults = {
 		breakpoint: 900,
-		activeClass: 'is-active',
 		animationDuration: 300,
 		animationEasing: 'ease',
 	};
