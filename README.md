@@ -1,20 +1,15 @@
 # MobileMenu
 
 ## What it is
+**Create unlimited submenus, that slides in when clicking a navigation list item and style it the way you want!**
 
-Create unlimited submenus, that slides in when clicking a navigation list item and style it the way you want!
+<img src="assets/preview.gif" alt="preview" width="200"/>
 
-<img src="https://github.com/user-attachments/assets/e9005428-a667-44cf-bca5-f5f4599aa945" alt="preview" width="200"/>
-
-Submenus slide in from the right and fully cover the nav panel. Multi-level nesting is supported via a built-in navigation stack.
-
-MobileMenu is a lightweight, dependency-free JavaScript library for a multilevel mobile navigation menus. It works by reading `data-` attributes. The script only manages classes and ARIA attributes; all visual design is yours.
-
-
+MobileMenu is a lightweight, dependency-free JavaScript library for a multilevel mobile navigation menu. It works by reading `data-` attributes. The script only manages classes and ARIA attributes; all visual design is yours.
 
 ## Getting Started
 
-Load both files from jsDelivr. Add the stylesheet in `<head>` and the script before `</body>`:
+### 1. Add the following code inside the <head> tag of your project
 
 ```html
 <!-- Install Multilevel Mobilmenu -->
@@ -24,9 +19,7 @@ Load both files from jsDelivr. Add the stylesheet in `<head>` and the script bef
 
 To pin a specific version, replace `@latest` with the desired version like `@v1.0.0`.
 
----
-
-## Quick Start
+### 2. Build the multilevel structure with its content
 
 ```html
 <!-- 1. Toggle button -->
