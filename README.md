@@ -2,9 +2,9 @@
 
 ## What it is
 
-Create unlimited submenus, that slides in when clicking a navigation list item.
+Create unlimited submenus, that slides in when clicking a navigation list item and style it the way you want!
 
-![Video](assets/preview.mov)
+<img src="https://github.com/user-attachments/assets/e9005428-a667-44cf-bca5-f5f4599aa945" alt="preview" width="200"/>
 
 Submenus slide in from the right and fully cover the nav panel. Multi-level nesting is supported via a built-in navigation stack.
 
