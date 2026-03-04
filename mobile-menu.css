@@ -23,6 +23,9 @@
   transform: translateX(0);
 }
 
+.w-dropdown:has([data-submenu].is-active) {
+    z-index: 905;
+}
 [data-submenu].w-dropdown-list {
   display: block;
 }
