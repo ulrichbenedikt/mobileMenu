@@ -19,14 +19,14 @@
   padding-top:40px;
 }
 
-[data-submenu]:not(.is-active) {
-  display: none !important;
+[aria-hidden="true"] {
+  opacity: 0 !important;
 }
 
 /* Slide into view when active */
 [data-submenu].is-active {
   transform: translateX(0) !important;
-  display: block;
+  opacity: 1;
 }
 
 .w-dropdown:has([data-submenu].is-active) {
