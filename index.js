@@ -79,6 +79,7 @@
 		}
 
 		_handleNavClick(e) {
+			if (!this._isMobile) return;
 			const trigger = e.target.closest('[data-submenu-trigger]');
 			if (trigger) {
 				e.preventDefault();
