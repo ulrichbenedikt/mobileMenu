@@ -10,7 +10,7 @@
 [data-submenu] {
   position: fixed;
   inset: 0;
-  transform: translateX(100%);
+  transform: translateX(100%) !important;
   transition: transform var(--mm-duration, 0.3s) var(--mm-easing, ease);
   background: white;
   z-index: 1;
@@ -20,7 +20,7 @@
 
 /* Slide into view when active */
 [data-submenu].is-active {
-  transform: translateX(0);
+  transform: translateX(0) !important;
 }
 
 .w-dropdown:has([data-submenu].is-active) {
