@@ -2,12 +2,13 @@
    These are the structural styles required for the slide-in behaviour.
    Visual design (colours, typography, sizing) is entirely up to you.
 
-   If you changed the default breakpoint (900) in the JS options,
-   update the media query values below to match.
+   All rules are scoped to [data-mobile-menu], which the JS adds to the nav
+   element only when below the breakpoint. This means styles are automatically
+   inactive on desktop — no media queries needed.
    ────────────────────────────────────────────────────────────────────────── */
 
 /* Submenu panels: cover the nav, start off-screen to the right */
-[data-submenu] {
+[data-mobile-menu] [data-submenu] {
   position: fixed;
   inset: 0;
   transform: translateX(100%) !important;
@@ -16,32 +17,33 @@
   z-index: 1;
   overflow-y: scroll;
   overflow-x: hidden;
-  padding-top:40px;
+  padding-top: 40px;
 }
 
-[aria-hidden="true"] {
+[data-mobile-menu] [aria-hidden="true"] {
   opacity: 0 !important;
 }
 
 /* Slide into view when active */
-[data-submenu].is-active {
+[data-mobile-menu] [data-submenu].is-active {
   transform: translateX(0) !important;
   opacity: 1;
 }
 
-.w-dropdown:has([data-submenu].is-active) {
-    z-index: 905;
+[data-mobile-menu] .w-dropdown:has([data-submenu].is-active) {
+  z-index: 905;
 }
-[data-submenu].w-dropdown-list {
+
+[data-mobile-menu] [data-submenu].w-dropdown-list {
   display: block;
 }
 
-[data-submenu-trigger] {
+[data-mobile-menu] [data-submenu-trigger] {
   cursor: pointer;
 }
 
 /* Back button: hidden at root level (no submenu open) */
-[data-mobile-menu-back] {
+[data-mobile-menu] [data-mobile-menu-back] {
   visibility: hidden;
   z-index: 999;
   position: relative;
@@ -49,6 +51,6 @@
 }
 
 /* Back button: visible when a submenu panel is active */
-[data-mobile-menu-back].is-active {
+[data-mobile-menu] [data-mobile-menu-back].is-active {
   visibility: visible;
 }

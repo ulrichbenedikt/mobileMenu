@@ -90,9 +90,15 @@
 		_initBreakpoint() {
 			this._mq = window.matchMedia(`(max-width: ${this.options.breakpoint - 1}px)`);
 			this._isMobile = this._mq.matches;
+			if (this._isMobile) this.nav.setAttribute('data-mobile-menu', '');
 			this._onMqChange = (e) => {
 				this._isMobile = e.matches;
-				if (!e.matches) this._closeAll();
+				if (e.matches) {
+					this.nav.setAttribute('data-mobile-menu', '');
+				} else {
+					this.nav.removeAttribute('data-mobile-menu');
+					this._closeAll();
+				}
 			};
 			this._mq.addEventListener('change', this._onMqChange);
 		}
@@ -174,6 +180,7 @@
 			}
 			this.nav.style.removeProperty('--mm-duration');
 			this.nav.style.removeProperty('--mm-easing');
+			this.nav.removeAttribute('data-mobile-menu');
 			return this;
 		}
 	}
